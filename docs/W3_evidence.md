@@ -154,14 +154,14 @@ Document stores (MongoDB):
 
 ## Part C — Wrong-Paradigm Test (Pattern 1: Booking Creation)
 
-**Why Key-Value Store (Redis/Memcached) Fails**
+**Why Key-Value Store Fails**
 
-A pure Key-Value store (e.g., Redis, Memcached) cannot atomically enforce the constraint:
+A pure Key-Value store cannot atomically enforce the constraint:
 
 - `"orderCode must be globally unique"`
 - `"tinh_trang must only transition false → true"`
 
-Redis transactions (`WATCH/MULTI/EXEC`):
+Key-Value store transactions (`WATCH/MULTI/EXEC`):
 - Lack isolation levels  
 - Cannot serialize:
   1. INSERT datsans #1  
