@@ -206,39 +206,33 @@ Redis transactions (`WATCH/MULTI/EXEC`):
 ---
 
 ## 4. Working Query Evidence
+## 4. Working Query Evidence
 
-### Query 1: Relational JOIN (User Booking History)
-* **Description:** A multi-table `JOIN` operation to construct a comprehensive view of a user's past bookings, resolving foreign keys across `datsans`, `vitrisans`, `santhethaos`, and `danhgias`.
+### Query 1: Relational JOIN (Browse Facility Details)
+* **Description:** Retrieves consolidated facility information by joining santhethaos and vitrisans. This allows users to view comprehensive details including facility names, court numbers, and pricing in a single view
 * **Evidence:**
-    > *[Insert Terminal/DBeaver Screenshot here: Showing the SQL query execution and the actual returned rows]*
+    > ![Working Query Evidence 1](Working-Query-Evidence-1.png)
 * **Operation:**
     ```sql
-    SELECT danhgias.id AS id_danh_gia,
-           datsans.id_vi_tri_dat_san,
-           datsans."orderCode",
-           datsans.ngay_dat,
-           datsans.gio_dat,
-           datsans.thanh_tien,
-           santhethaos.ten_san,
-           santhethaos.huyen,
-           vitrisans.so_san
-    FROM datsans
-    JOIN vitrisans ON datsans.id_vi_tri_dat_san = vitrisans.id
-    JOIN santhethaos ON santhethaos.id = vitrisans.id_san
-    LEFT JOIN danhgias ON vitrisans.id = danhgias.id_vi_tri_san
-    WHERE datsans.id_nguoi_dung = 'user-uuid-1234';
+    SELECT 
+      st.ten_san AS "Facility Name", 
+      vt.so_san AS "Court Number", 
+      vt.gia_san AS "Price/Slot"
+    FROM public.santhethaos st
+    JOIN public.vitrisans vt ON st.id = vt.id_san
+    WHERE st.tinh_trang = true
+    LIMIT 10;
     ```
 
-### Query 2: Indexed Lookup (Authentication)
-* **Description:** Retrieving user credentials via email lookup. To prevent a Full Table Scan (Sequential Scan), an index is utilized to ensure $O(\log n)$ lookup time.
+### Query 2: Indexed Lookup (Verify Payment Order)
+* **Description:** Performs a high-speed lookup of a specific booking record using the orderCode. This operation is critical for real-time payment confirmation via PayOS Webhooks.
 * **Evidence:**
-    > *[Insert Terminal/DBeaver Screenshot here: Showing the EXPLAIN ANALYZE output proving that an Index Scan was used instead of a Seq Scan]*
+    > ![Working Query Evidence 2](Working-Query-Evidence-2.png)
 * **Operation:**
     ```sql
     EXPLAIN ANALYZE
-    SELECT *
-    FROM nguoidungs
-    WHERE email = 'user@example.com';
+    SELECT * FROM public.datsans 
+    WHERE "orderCode" = 'ORDER-1773458412653-000009-8YDLXH';
     ```
 
 ---
