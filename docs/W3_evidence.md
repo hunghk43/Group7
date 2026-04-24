@@ -238,6 +238,14 @@ Redis transactions (`WATCH/MULTI/EXEC`):
 ## 5. Lambda + Bedrock Evidence
 
 
+### AC #1: Function Invocation & Logs
+* **Evidence:** 
+    ![AI Bedrock Integration](AI-bedrock.jpg)
+* **Technical Notes:** The Lambda function is triggered via an API Gateway integration. The IAM Execution Role adheres to the **Principle of Least Privilege**, with specific `Allow` actions scoped strictly to the required Bedrock Knowledge Base ARN, containing absolutely no `Resource: "*"` or `Action: "*"` statements.
+
+======
+
+
 ---
 
 ## 6. VPC & Networking Evidence
