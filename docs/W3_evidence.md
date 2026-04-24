@@ -8,7 +8,7 @@
 
 ## 1. Project Foundation
 * **Chosen Database Engine & Paradigm:** Amazon RDS PostgreSQL / Relational
-* **W2 Evidence Link:** [Insert your team's W2 markdown or GitHub commit link here]
+* **W2 Evidence Link:** 
 
 ---
 
@@ -117,23 +117,6 @@ If we were to use a **Key-Value database (like DynamoDB)** for this application,
     ![RDS Outbound Security Group Rules](RDS%20outbound.png)
 * **Technical Notes:** The inbound rule explicitly references the Security Group ID of the Application Tier (`sg-0abcd1234...`) on port 5432, rather than a CIDR block. This creates a logical security boundary: even if a new EC2 instance is launched in the private subnet, it cannot access the database unless it is explicitly attached to the Application Security Group.
 
----
 
-## 7. Negative Security Test
 
-* **Scenario:** Attempting to establish a direct connection to the RDS endpoint from an external, unauthorized environment (a local developer machine outside the AWS VPC).
-* **Expected Result:** The connection must fail (timeout) because the database resides in a private subnet with no Internet Gateway route, and the Security Group drops uninvited packets.
-* **Evidence:**
-    > *[Insert Terminal Screenshot here: Showing the `psql -h <rds-endpoint> -U postgres` command timing out]*
 
----
-
-## 8. Bonus: Real-world Ops Scenario (Multi-AZ Failover Drill)
-
-* **Action Taken:** Simulated a severe hardware degradation by triggering a "Reboot with failover" via the RDS Console on our Multi-AZ deployment.
-* **Pre-execution State:** Primary DB located in `ap-southeast-1a`. Application functioning normally.
-    > *[Insert Screenshot: RDS Console showing current AZ]*
-* **Post-execution State:** Standby DB in `ap-southeast-1b` was automatically promoted to Primary. CNAME record propagated.
-    > *[Insert Screenshot: RDS Console showing the new AZ and "Available" status]*
-* **Measurement:** Connection drop observed for exactly **[Insert Time, e.g., 85 seconds]** before the application successfully re-established the connection pool.
-* **Architectural Reflection:** While Multi-AZ doubles compute and storage costs, the drill proved its value for critical workloads. The failover is handled entirely by AWS at the DNS level. A key takeaway is the importance of configuring our Node.js/Sequelize connection pool to aggressively retry on connection loss, rather than crashing the application entirely.
