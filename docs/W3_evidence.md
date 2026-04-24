@@ -9,7 +9,7 @@
 ## 1. Project Foundation
 * **Chosen Database Engine & Paradigm:** Amazon RDS PostgreSQL / Relational
 * **W2 Evidence Link:** 
-
+![Diagram tuần 2](XB-WEEK-2.png)
 ---
 
 ## 2. Data Access Pattern Log
