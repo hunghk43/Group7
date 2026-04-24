@@ -1,8 +1,8 @@
 # Evidence Pack - Week 3: Deployment & Evidence
 
-**Group:** 7
-**Members:** Bùi Thành Nghĩa, Lê Thị Thùy Trang, Trần Minh Quang, Hoàng Kim Hùng, Nguyễn Công Thịnh, Phạm Công Huy, Nguyễn Tất Văn, Lê Nguyễn Nhật Thành, Đỗ Phúc
-**Project:** Sports Field Booking System (AWS 3-Tier Architecture)
+* **Group:** 7
+* **Members:** Bùi Thành Nghĩa, Lê Thị Thùy Trang, Trần Minh Quang, Hoàng Kim Hùng, Nguyễn Công Thịnh, Phạm Công Huy, Nguyễn Tất Văn, Lê Nguyễn Nhật Thành, Đỗ Phúc
+* **Project:** Sports Field Booking System (AWS 3-Tier Architecture)
 
 ---
 
