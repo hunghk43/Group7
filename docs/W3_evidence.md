@@ -259,7 +259,7 @@ Redis transactions (`WATCH/MULTI/EXEC`):
 * **Scenario:** Attempting to establish a direct connection to the RDS endpoint from an external, unauthorized environment (a local developer machine outside the AWS VPC).
 * **Expected Result:** The connection must fail (timeout) because the database resides in a private subnet with no Internet Gateway route, and the Security Group drops uninvited packets.
 * **Evidence:**
-    > *[Insert Terminal Screenshot here: Showing the `psql -h <rds-endpoint> -U postgres` command timing out]*
+  ![RDS Security Test](test-security.png)
 
 ---
 
