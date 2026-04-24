@@ -204,8 +204,6 @@ Redis transactions (`WATCH/MULTI/EXEC`):
 * **Technical Notes:** Storage encryption at rest is enforced using the AWS-managed KMS key (`aws/rds`). We chose the managed key approach over a Customer Managed Key (CMK) to minimize operational overhead regarding key rotation while still satisfying strict data protection compliance for user PII and payment records.
 
 ---
-
-## 4. Working Query Evidence
 ## 4. Working Query Evidence
 
 ### Query 1: Relational JOIN (Browse Facility Details)
