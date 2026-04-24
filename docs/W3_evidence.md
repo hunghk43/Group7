@@ -39,13 +39,13 @@ If we were to use a **Key-Value database (like DynamoDB)** for this application,
 
 ### AC #1: Database Instance Setup & Network Isolation
 * **Evidence:** 
-    ![RDS Configuration](../../../pics/RDS%20config.png)
-    ![RDS Overview](../../../pics/RDS%20ovr.png)
+    ![RDS Configuration](../../pics/RDS%20config.png)
+    ![RDS Overview](../../pics/RDS%20ovr.png)
 * **Technical Notes:** The RDS instance is deployed within a Private Subnet group. We explicitly disabled "Public Access." This architectural decision ensures the database is completely isolated from the public internet, mitigating direct external attack vectors. Only the Application Tier (EC2 instances) can route traffic to it.
 
 ### AC #2: Data Encryption at Rest
 * **Evidence:** 
-    ![RDS Security Configuration](../../../pics/RDS%20sec.png)
+    ![RDS Security Configuration](../../pics/RDS%20sec.png)
 * **Technical Notes:** Storage encryption at rest is enforced using the AWS-managed KMS key (`aws/rds`). We chose the managed key approach over a Customer Managed Key (CMK) to minimize operational overhead regarding key rotation while still satisfying strict data protection compliance for user PII and payment records.
 
 ---
@@ -107,14 +107,14 @@ If we were to use a **Key-Value database (like DynamoDB)** for this application,
 
 ### AC #1: S3 Gateway Endpoint
 * **Evidence:** 
-    ![S3 Endpoint Configuration](../../../pics/s3%20endpoint.png)
-    ![VPC Architecture](../../../pics/vpc.png)
+    ![S3 Endpoint Configuration](../../pics/s3%20endpoint.png)
+    ![VPC Architecture](../../pics/vpc.png)
 * **Technical Notes:** Implementing a Gateway Endpoint ensures that traffic between our private EC2 instances and S3 never traverses the public internet, significantly enhancing security and eliminating NAT Gateway data processing charges for internal traffic.
 
 ### AC #2: Database Security Group Rules
 * **Evidence:** 
-    ![RDS Inbound Security Group Rules](../../../pics/RDS%20inbound%20sg.png)
-    ![RDS Outbound Security Group Rules](../../../pics/RDS%20outbound.png)
+    ![RDS Inbound Security Group Rules](../../pics/RDS%20inbound%20sg.png)
+    ![RDS Outbound Security Group Rules](../../pics/RDS%20outbound.png)
 * **Technical Notes:** The inbound rule explicitly references the Security Group ID of the Application Tier (`sg-0abcd1234...`) on port 5432, rather than a CIDR block. This creates a logical security boundary: even if a new EC2 instance is launched in the private subnet, it cannot access the database unless it is explicitly attached to the Application Security Group.
 
 ---
