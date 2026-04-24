@@ -254,6 +254,16 @@ Redis transactions (`WATCH/MULTI/EXEC`):
     ![RDS Outbound Security Group Rules](RDS%20outbound.png)
 * **Technical Notes:** The inbound rule explicitly references the Security Group ID of the Application Tier (`sg-0abcd1234...`) on port 5432, rather than a CIDR block. This creates a logical security boundary: even if a new EC2 instance is launched in the private subnet, it cannot access the database unless it is explicitly attached to the Application Security Group.
 
+## 7. Negative Security Test
+
+* **Scenario:** Attempting to establish a direct connection to the RDS endpoint from an external, unauthorized environment (a local developer machine outside the AWS VPC).
+* **Expected Result:** The connection must fail (timeout) because the database resides in a private subnet with no Internet Gateway route, and the Security Group drops uninvited packets.
+* **Evidence:**
+    > *[Insert Terminal Screenshot here: Showing the `psql -h <rds-endpoint> -U postgres` command timing out]*
+
+---
+
+
 
 
 
