@@ -90,16 +90,6 @@ If we were to use a **Key-Value database (like DynamoDB)** for this application,
 
 ## 5. Lambda + Bedrock Evidence
 
-### AC #1: Function Invocation & Logs
-* **Evidence:** > *[Insert CloudWatch Logs Screenshot here: Showing the log stream timestamped immediately after the Lambda trigger event]*
-* **Technical Notes:** The Lambda function is triggered via an API Gateway integration. The IAM Execution Role adheres to the **Principle of Least Privilege**, with specific `Allow` actions scoped strictly to the required Bedrock Knowledge Base ARN, containing absolutely no `Resource: "*"` or `Action: "*"` statements.
-
-### AC #2: AI Retrieval Execution
-* **Evidence:** > *[Insert Terminal Screenshot here: Showing the CLI payload or application response containing the actual Retrieve/RetrieveAndGenerate output]*
-* **CLI Command Executed:**
-    ```bash
-    aws lambda invoke --function-name sports-booking-ai-helper --payload '{"query": "How to cancel a booking?"}' response.json
-    ```
 
 ---
 
